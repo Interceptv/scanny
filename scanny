@@ -54,7 +54,7 @@ echo -e "\033[1;37m━━━━━━━━━━━━━━━━━━━━�
 		} || {
 			sks='\033[1;31mOFF'
 		}
-	[[ $(screen -list | grep -wc 'checkuser') != '0' ]] && var_sks1="\033[1;32m◉" || var_sks1="\033[1;31m○"
+	[[ $(screen -list | grep -wc 'scannycheck') != '0' ]] && var_sks1="\033[1;32m◉" || var_sks1="\033[1;31m○"
     echo ""
     echo -e "\033[1;31m[\033[1;36m1\033[1;31m] \033[1;37m• \033[1;33mATIVAR CHECKUSER $var_sks1 \033[0m"
     echo -e "\033[1;31m[\033[1;36m0\033[1;31m] \033[1;37m• \033[1;33mVOLTAR\033[0m"
@@ -67,7 +67,7 @@ echo -e "\033[1;37m━━━━━━━━━━━━━━━━━━━━�
 				echo -e "\E[41;1;37m             CHECKUSER              \E[0m"
 				echo ""
 				fun_socksoff() {
-					for pidcheckuser in $(screen -ls | grep ".checkuser" | awk {'print $1'}); do
+					for pidcheckuser in $(screen -ls | grep ".scannycheck" | awk {'print $1'}); do
 						screen -r -S "$pidcheckuser" -X quit
 					done
 					[[ $(grep -wc "scanny.py" /etc/autostart) != '0' ]] && {
@@ -99,12 +99,12 @@ echo -e "\033[1;37m━━━━━━━━━━━━━━━━━━━━�
 				verif_ptrs $porta
 				fun_inisocks() {
 					sleep 1
-					screen -dmS checkuser python3 /usr/lib/scanny/scanny.py $porta;
-					[[ $(grep -wc "checkuser" /etc/autostart) = '0' ]] && {
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'checkuser' -X quit;  screen -dmS checkuser python3 /usr/lib/scanny/scanny.py $porta; }" >>/etc/autostart
+					screen -dmS scannycheck python3 /usr/lib/scanny/scanny.py $porta;
+					[[ $(grep -wc "scannycheck" /etc/autostart) = '0' ]] && {
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'scannycheck' -X quit;  screen -dmS scannycheck python3 /usr/lib/scanny/scanny.py $porta; }" >>/etc/autostart
 					} || {
 						sed -i '/scanny/d' /etc/autostart
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'checkuser' -X quit;  screen -dmS checkuser python3 /usr/lib/scanny/scanny.py $porta; }" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'scannycheck' -X quit;  screen -dmS scannycheck python3 /usr/lib/scanny/scanny.py $porta; }" >>/etc/autostart
 					}
 				}
 				echo ""
