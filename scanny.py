@@ -78,7 +78,7 @@ uuid2, b))
             return jsonify({'error': str(e)})
     else:
         try:
-            return 'Cannot GET /checkUser'
+            return 'Não autorizado!'
         except Exception as e:
             return jsonify({'error': str(e)})
 
