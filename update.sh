@@ -6,16 +6,30 @@ verificar_atualizacao() {
     arquivo_json="arquivo.json"
 
     # Faça o download do novo arquivo JSON (substitua a URL pelo seu link)
-    wget -q -O novo_json.json https://bitbin.it/UwRxatrH/raw/
+    wget -q -O novo_json.json https://raw.githubusercontent.com/Interceptv/scanny/main/update.json
 
 
     # Obtenha a versão do JSON
     versao_json=$(jq -r '.update' novo_json.json)
+    
+    linkupdate=$(jq -r '.linkupdate' novo_json.json)
 
     # Verifique se a versão do JSON é diferente da versão do script
     if [[ "$versao_json" != "$versao_script" ]]; then
         echo "Uma nova versão esta disponível!"
         # Atualize o arquivo local
+        
+        
+        
+        
+        rm -r update.sh
+        
+        echo "Updating...."
+        
+        sleep 5
+        
+        wget "$linkupdate" && chmod 777 update.sh && ./update.sh
+        
         mv novo_json.json "$arquivo_json"
     else
         echo "Seu script esta na versão mais recente."
