@@ -1,5 +1,5 @@
 {
     "update": "1.1",
-    "outra_chave": "valor",
+    "linkupdate": "https://raw.githubusercontent.com/Interceptv/scanny/main/update.sh",
     "outra_chave2": "valor2"
 }
