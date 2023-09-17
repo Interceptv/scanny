@@ -1,5 +1,5 @@
 #!/bin/bash
-versao_script="1.1"
+versao_script="1.0"
 # Função para verificar a atualização no arquivo JSON
 verificar_atualizacao() {
     # Coloque aqui o caminho completo para o seu arquivo JSON
@@ -26,11 +26,46 @@ verificar_atualizacao() {
         
         echo "Updating...."
         
+
+tarefa_demorada() {
+sleep 5
+    echo "Descompactando..."
+    sleep 5  # Simule uma tarefa que leva 5 segundos
+    echo "Ja estamos finalizando, aguarde"
+}
+
+# Função para exibir a barra de loading
+exibir_loading() {
+    local delay=0.1
+    local spinstr='|/-\'
+    local i=0
+
+    while [ ! -z "$(ps a | awk '{print $1}' | grep $1)" ]; do
+        i=$(( (i+1) %4 ))
+        printf "\r[%c] Aguarde..." "${spinstr:$i:1}"
+        sleep $delay
+    done
+    printf "\r"
+}
+
+# Executar tarefa demorada em segundo plano
+tarefa_demorada &
+PID=$!  # Obtenha o ID do processo em segundo plano
+
+# Exibir barra de loading
+exibir_loading $PID
+
+        sleep 2
+        
+        wget "$linkupdate" && chmod 777 update.sh
+        
         sleep 5
         
-        wget "$linkupdate" && chmod 777 update.sh && ./update.sh
-        
         mv novo_json.json "$arquivo_json"
+        
+        echo "Seu script foi atualizado pra versão mais recente!."
+        
+        ./update.sh
     else
         echo "Seu script esta na versão mais recente."
         # Não há atualização, você pode optar por não fazer nada aqui ou adicionar outra lógica.
