@@ -1,5 +1,5 @@
 #!/bin/bash
-versao_script="1.0"
+versao_script="1.1"
 # Função para verificar a atualização no arquivo JSON
 verificar_atualizacao() {
     # Coloque aqui o caminho completo para o seu arquivo JSON
